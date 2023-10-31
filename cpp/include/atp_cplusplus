@@ -1,0 +1,6 @@
+#ifndef ATP_CPLUSPLUS_LIBRARY_H
+#define ATP_CPLUSPLUS_LIBRARY_H
+
+#include "atp_cplusplus_parts/VEML6075.hpp"
+
+#endif
