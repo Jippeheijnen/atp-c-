@@ -25,13 +25,9 @@ namespace sensors {
 
     class TMC2209 {
 
-        std::string _name;
-
     public:
 
-        TMC2209(std::string name);
-
-        static void setup();
+        TMC2209();
 
 
     };

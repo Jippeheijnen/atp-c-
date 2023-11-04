@@ -20,13 +20,6 @@ Created by Jippe Heijnen on 31-10-23.
 
 namespace sensors {
 
-    TMC2209::TMC2209(std::string name):
-    _name(name)
-    {}
-
-    void TMC2209::setup() {
-        // some code here
-        std::cout << "setup complete" << std::endl;
-    }
+    TMC2209::TMC2209() {};
 
 }

@@ -25,8 +25,5 @@ namespace py = pybind11;
 void init_TMC2209(py::module &m) {
 
     py::class_<sensors::TMC2209>(m, "TMC2209")
-            .def(py::init<std::string>(), py::arg("name"))
-
-            .def("setup",
-                 py::overload_cast<>(&sensors::TMC2209::setup));
+            .def(py::init<>());
 }
