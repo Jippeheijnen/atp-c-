@@ -20,12 +20,32 @@ Created by Jippe Heijnen on 31-10-23.
 #define ATP_CPLUSPLUS_VEML6075_HPP
 
 #include <string>
+#include <array>
 
 namespace sensors {
 
     class VEML6075 {
 
         std::string _name;
+
+        // internal registers
+        volatile uint8_t UV_CONF = 0x00; // for writing only low address
+
+        volatile uint8_t UVA_Data_LSB = 0x00;
+        volatile uint8_t UVA_Data_MSB = 0x00;
+
+        volatile uint8_t UVB_Data_LSB = 0x00;
+        volatile uint8_t UVB_Data_MSB = 0x00;
+
+        volatile uint8_t UVCOMP1_Data_LSB = 0x00;
+        volatile uint8_t UVCOMP1_Data_MSB = 0x00;
+
+        volatile uint8_t UVCOMP2_Data_LSB = 0x00;
+        volatile uint8_t UVCOMP2_Data_MSB = 0x00;
+
+        volatile uint8_t ID_LSB = 0x26;
+        volatile uint8_t ID_MSB = 0x00;
+
 
     public:
         VEML6075(std::string name);
