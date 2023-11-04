@@ -21,17 +21,95 @@ Created by Jippe Heijnen on 31-10-23.
 
 namespace sensors {
 
-    VEML6075::VEML6075(std::string name) :
-    _name(name)
-    {}
+    VEML6075::VEML6075() {};
 
-    std::string VEML6075::get_name() const {
-        return _name;
+    uint16_t VEML6075::operator>>(const uint8_t rhs) {
+        uint16_t response;
+
+        switch (rhs) {
+            case 0x0:
+                // crafting the response
+                response = (0x00 << 8); // first shift the most significant bits to the left.
+                response |= this->UV_CONF; // and add the least significant bits.
+                break;
+            case 0x1:
+                response = 0x00;
+                break;
+            case 0x2:
+                response = 0x00;
+                break;
+            case 0x3:
+                response = 0x00;
+                break;
+            case 0x4:
+                response = 0x00;
+                break;
+            case 0x5:
+                response = 0x00;
+                break;
+            case 0x6:
+                response = 0x00;
+                break;
+            case 0x7:
+                response = (this->UVA_Data_MSB << 8);
+                response |= this->UVA_Data_LSB;
+                break;
+            case 0x8:
+                response = 0x00;
+                break;
+            case 0x9:
+                response = (this->UVB_Data_MSB << 8);
+                response |= this->UVB_Data_LSB;
+                break;
+            case 0xA:
+                response = (this->UVCOMP1_Data_MSB << 8);
+                response |= this->UVCOMP1_Data_LSB;
+                break;
+            case 0xB:
+                response = (this->UVCOMP2_Data_MSB << 8);
+                response |= this->UVCOMP2_Data_LSB;
+                break;
+            case 0xC:
+                response = (this->ID_MSB << 8);
+                response |= this->ID_LSB;
+                break;
+            default:
+                // this is to catch incorrect command codes:
+                response = 0x66;
+        }
+
+
+        // this checks whether rhs is even (for testing purposes, not necessary anymore).
+        //(rhs & 1) == 0 ? result = 0x00 : result = 0x01;
+
+        return response;
     }
 
-    void VEML6075::test(std::string message) {
+    void VEML6075::operator<<(std::array<uint8_t, 3> &rhs) {
+        uint8_t REG, L, H;
+        REG = rhs[0];
+        L = rhs[1];
+        H = rhs[2];
 
-        std::cout << message << std::endl;
+        switch (REG) {
+            case 0x0:
+                UV_CONF = L;
+                return;
+            case 0x1:
+                return;
+            case 0x2:
+                return;
+            case 0x3:
+                return;
+            case 0x4:
+                return;
+            case 0x5:
+                return;
+            case 0x6:
+                return;
+            default:
+                return;
+        }
 
     }
 

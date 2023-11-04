@@ -48,11 +48,25 @@ namespace sensors {
 
 
     public:
-        VEML6075(std::string name);
+        explicit VEML6075();
 
-        std::string get_name() const;
+        /**
+         * This command is for reading the UV data
+         * @details
+         * only the command code is sent, after which the chip replies with 16bits UV data.
+         * @param rhs 8bits command code.
+         * @return
+         */
+        uint16_t operator>>(uint8_t rhs);
 
-        void test(std::string message);
+        /**
+         * This command is for writing to the chip.
+         * @param rhs the rhs[0] = register,
+         * rhs[1] = data LSB,
+         * rhs[2] = data MSB
+         * @return no return value.
+         */
+        void operator<<(std::array<uint8_t, 3> &rhs);
 
     };
 

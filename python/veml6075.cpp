@@ -21,15 +21,17 @@ Created by Jippe Heijnen on 31-10-23.
 #include <pybind11/stl.h>
 
 #include <pybind11/pybind11.h>
+
 namespace py = pybind11;
 
 void init_VEML6075(py::module &m) {
 
     py::class_<sensors::VEML6075>(m, "VEML6075")
-            .def(py::init<std::string>(), py::arg("name"))
-            .def("get_name",
-                 py::overload_cast<>( &sensors::VEML6075::get_name, py::const_))
-            .def("test",
-                 py::overload_cast<std::string>( &sensors::VEML6075::test),
-                 py::arg("message"));
+            .def(py::init<>())
+
+                    // the left shift operator should function as a 'send' function
+                    // which returns the response of the VEML chip.
+            .def("__rshift__",
+                 py::overload_cast<uint8_t>(&sensors::VEML6075::operator>>))
+            .def("__lshift__", py::overload_cast<std::array<uint8_t, 3>&>(&sensors::VEML6075::operator<<));
 }
