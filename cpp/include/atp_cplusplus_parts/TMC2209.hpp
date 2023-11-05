@@ -121,6 +121,31 @@ namespace sensors {
 
         TMC2209();
 
+        /**
+         * This command is for sending to the chip.
+         * All bytes are LSB to MSB and the highest byte is transmitted first
+         * @param rhs The datagram to be sent to the slave.
+         *
+         * @rhs0 sync + reserved (reserved bits are included in CRC)
+         * example: 1010'0000
+         *
+         * @rhs1 8bit slave address (=0...3)
+         *
+         * @rhs2 Read (0) or Write (1) + 7bit register address.
+         *
+         * @rhs3...6 32 bits data. (Remember the LSB to MSB order!)
+         *
+         * @rhs7 Cyclic Redundancy Check
+         * The sync nibble is assumed to be sent correctly,
+         * but the rest of that byte is included in the crc.
+         *
+         * @Calculation
+         * CRC = x⁸ + x² + x¹ + x⁰
+         *
+         * @return no return value.
+         */
+        void operator<<(std::array<uint8_t, 8> &rhs);
+
 
     };
 
