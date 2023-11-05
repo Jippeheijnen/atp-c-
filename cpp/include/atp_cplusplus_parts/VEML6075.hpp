@@ -21,6 +21,8 @@ Created by Jippe Heijnen on 31-10-23.
 
 #include <string>
 #include <array>
+#include <random>
+#include <chrono>
 
 namespace sensors {
 
@@ -28,20 +30,20 @@ namespace sensors {
 
         std::string _name;
 
-        // internal registers
+        // internal registers (they return random values for now...)
         volatile uint8_t UV_CONF = 0x00; // for writing only low address
 
-        volatile uint8_t UVA_Data_LSB = 0x00;
-        volatile uint8_t UVA_Data_MSB = 0x00;
+        volatile uint8_t UVA_Data_LSB = uint8_t(random()) ;
+        volatile uint8_t UVA_Data_MSB = uint8_t(random()) ;
 
-        volatile uint8_t UVB_Data_LSB = 0x00;
-        volatile uint8_t UVB_Data_MSB = 0x00;
+        volatile uint8_t UVB_Data_LSB = uint8_t(random());
+        volatile uint8_t UVB_Data_MSB = uint8_t(random());
 
-        volatile uint8_t UVCOMP1_Data_LSB = 0x00;
-        volatile uint8_t UVCOMP1_Data_MSB = 0x00;
+        volatile uint8_t UVCOMP1_Data_LSB = uint8_t(random());
+        volatile uint8_t UVCOMP1_Data_MSB = uint8_t(random());
 
-        volatile uint8_t UVCOMP2_Data_LSB = 0x00;
-        volatile uint8_t UVCOMP2_Data_MSB = 0x00;
+        volatile uint8_t UVCOMP2_Data_LSB = uint8_t(random());
+        volatile uint8_t UVCOMP2_Data_MSB = uint8_t(random());
 
         volatile uint8_t ID_LSB = 0x26;
         volatile uint8_t ID_MSB = 0x00;

@@ -21,7 +21,9 @@ Created by Jippe Heijnen on 31-10-23.
 
 namespace sensors {
 
-    VEML6075::VEML6075() {};
+    VEML6075::VEML6075() {
+        srandom(time(nullptr));
+    };
 
     uint16_t VEML6075::operator>>(const uint8_t rhs) {
         uint16_t response;
@@ -51,6 +53,8 @@ namespace sensors {
                 response = 0x00;
                 break;
             case 0x7:
+                this->UVA_Data_LSB = uint8_t(random());
+                this->UVA_Data_MSB = uint8_t(random());
                 response = (this->UVA_Data_MSB << 8);
                 response |= this->UVA_Data_LSB;
                 break;
@@ -58,14 +62,20 @@ namespace sensors {
                 response = 0x00;
                 break;
             case 0x9:
+                this->UVB_Data_LSB = uint8_t(random());
+                this->UVB_Data_MSB = uint8_t(random());
                 response = (this->UVB_Data_MSB << 8);
                 response |= this->UVB_Data_LSB;
                 break;
             case 0xA:
+                this->UVCOMP1_Data_LSB = uint8_t(random());
+                this->UVCOMP1_Data_MSB = uint8_t(random());
                 response = (this->UVCOMP1_Data_MSB << 8);
                 response |= this->UVCOMP1_Data_LSB;
                 break;
             case 0xB:
+                this->UVCOMP2_Data_LSB = uint8_t(random());
+                this->UVCOMP2_Data_MSB = uint8_t(random());
                 response = (this->UVCOMP2_Data_MSB << 8);
                 response |= this->UVCOMP2_Data_LSB;
                 break;
