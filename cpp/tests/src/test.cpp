@@ -19,6 +19,8 @@ Created by Jippe Heijnen on 31-10-23.
 #include <atp_cplusplus>
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using namespace sensors;
 
@@ -46,23 +48,16 @@ int main() {
     VEML6075 s1, s2, s3, s4;
     std::array<VEML6075, 4> arr = {s1, s2, s3, s4};
 
-    int i = 0;
-    for (auto i = 0; i<arr.size(); i++) {
-        showReadCommand(arr[i], "Reading the chip ID", 0xC);
-        showReadCommand(arr[i], "Reading the chip config", 0x0);
-        std::array<uint8_t, 3> writeCommand = {0x0, i, 0x0};
-        arr[i] << writeCommand;
+    for (;;) {
+        showReadCommand(s1, "Chip ID:", 0x0);
+        showReadCommand(s1, "UVA data:", 0x7);
+
+        // adding delay
+        using namespace std::this_thread;
+        using namespace std::chrono;
+        sleep_for(nanoseconds(10));
+        sleep_until(system_clock::now() + milliseconds(100));
+        std::cout << "\n\n";
     }
 
-//    showReadCommand(s1, "Reading the chip ID", 0xC);
-//    showReadCommand(s1, "Reading the chip config", 0x0);
-    // now changing the chip config
-//    std::array<uint8_t, 3> new_conf = {0x0, 0x6, 0x6};
-//    s << new_conf;
-    for (auto chip : arr) {
-        showReadCommand(chip, "Reading the new chip config", 0x0);
-    }
-
-    //previous check to see whether the chips responds 0 or something else.
-    //if (response) {std::cout << "Even!\n";} else {std::cout << "Uneven!\n";}
 }
