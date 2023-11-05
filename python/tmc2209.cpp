@@ -25,5 +25,6 @@ namespace py = pybind11;
 void init_TMC2209(py::module &m) {
 
     py::class_<sensors::TMC2209>(m, "TMC2209")
-            .def(py::init<>());
+            .def(py::init<>())
+            .def("__lshift__", py::overload_cast<std::array<uint8_t, 8>&>(&sensors::TMC2209::operator<<));;
 }
