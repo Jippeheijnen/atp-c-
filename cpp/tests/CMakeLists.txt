@@ -14,6 +14,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/../bin)
 
 find_library(atp_cplusplus atp_cplusplus HINTS /usr/local/lib/)
 
-add_executable(test src/test.cpp)
+add_executable(test
+        src/test_VEML6075.cpp
+        src/test_TMC2209.cpp)
 
 target_link_libraries(test PUBLIC ${atp_cplusplus})
