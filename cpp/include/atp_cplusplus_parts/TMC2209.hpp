@@ -29,100 +29,140 @@ namespace sensors {
      */
     class TMC2209 {
 
+        /*
+         * This is the slave address physically configured with the MS1 and MS2 pins.
+         * The address can differ between 0x00 and 0x03 (default 0x00).
+         */
+        uint8_t slave_addr = 0x00;
+
+
+        // global configuration flags
+        volatile bool
+        I_scale_analog =        1,
+        internal_Rsense =       0,
+        en_SpreadCycle =        0,
+        shaft =                 0,
+        index_otpw =            0,
+        index_step =            0,
+        pdn_disable =           0,
+        mstep_reg_select =      0,
+        multistep_filt =        1,
+        test_mode =             0,
+        
+        // global status flags
+        reset =                 0,
+        drv_err =               0,
+        uv_cp =                 0;
+
+        // otp configuration memory
+        // otp_en_SpreadCycle =    0,
+        // OTP_IHOLD =             0,
+        // OTP_IHOLDDELAY =        0,
+        // otp_PWM_FREQ =          0,
+        // otp_PWM_REG =           0,
+        // otp_PWM_OFS =           0,
+        // OTP_CHOPCONF8 =         0,
+        // OTP_TPWMTHRS =          0,
+        // otp_pwm_autograd =      0,
+
+
+
+
         // internal registers
 
         // General
 
+        volatile uint32_t
         // 0x00 10bits
-        uint32_t GCONF = 0x00;
+        GCONF = 0x00,
 
         //0x01 3bits
-        uint32_t GSTAT = 0x00;
+        GSTAT = 0x00,
 
         // 0x02 8bits
-        uint32_t IFCNT = 0x00;
+        IFCNT = 0x00,
 
         // 0x03 4bits
-        uint32_t SLAVECONT = 0x00;
+        SLAVECONT = 0x00,
 
         // 0x04 16bits
-        uint32_t OTP_PROG = 0x00;
+        OTP_PROG = 0x00,
 
         // 0x05 24bits
-        uint32_t OTP_READ = 0x00;
+        OTP_READ = 0x00,
 
         // 0x06 10+8bits
-        uint32_t IOIN = 0x00;
+        IOIN = 0x00,
 
         // 0x07 5+2bits
-        uint32_t FACTORY_CONF = 0x00;
+        FACTORY_CONF = 0x00,
 
 
         // Velocity Dependent Control
 
         // 0x10 5+5+4bits
-        uint32_t IHOLD_IRUN = 0x00;
+        IHOLD_IRUN = 0x00,
 
         // 0x11 8bits
-        uint32_t TPOWER_DOWN = 0x00;
+        TPOWER_DOWN = 0x00,
 
         // 0x12 20bits
-        uint32_t TSTEP = 0x00;
+        TSTEP = 0x00,
 
         // 0x13 20bits
-        uint32_t TPWMTHRS = 0x00;
+        TPWMTHRS = 0x00,
 
         // 0x22 24bits
-        uint32_t VACTUAL = 0x00;
+        VACTUAL = 0x00,
 
 
         // StallGuard Control
 
         // 0x14 20bits
-        uint32_t TCOOLTHRS = 0x00;
+        TCOOLTHRS = 0x00,
 
         // 0x40 8bits
-        uint32_t SGTHRS = 0x00;
+        SGTHRS = 0x00,
 
         // 0x41 10bits
-        uint32_t SG_RESULT = 0x00;
+        SG_RESULT = 0x00,
 
         // 0x42 16bits
-        uint32_t COOLCONF = 0x00;
+        COOLCONF = 0x00,
 
 
         // Sequencer Registers
 
         // 0x6A 10bits
-        uint32_t MSNCT = 0x00;
+        MSNCT = 0x00,
 
         // 0x6B 9+9bits
-        uint32_t MSCURACT = 0x00;
+        MSCURACT = 0x00,
 
 
         // Chopper Control Registers
 
         // 0x6C 32bits
-        uint32_t CHOPCONF = 0x00;
+        CHOPCONF = 0x00,
 
         // 0x6F 32bits
-        uint32_t DRV_STATUS = 0x00;
+        DRV_STATUS = 0x00,
 
         // 0x70 22bits
-        uint32_t PWMCONF = 0x00;
+        PWMCONF = 0x00,
 
         // 0x71 9+8bits
-        uint32_t PWM_SCALE = 0x00;
+        PWM_SCALE = 0x00,
 
         // 0x72 8+8bits
-        uint32_t PWM_AUTO = 0x00;
+        PWM_AUTO = 0x00;
 
 
 
 
     public:
 
-        TMC2209();
+        explicit TMC2209(uint8_t slave_addr);
 
         /**
          * This command is for sending to the chip.
