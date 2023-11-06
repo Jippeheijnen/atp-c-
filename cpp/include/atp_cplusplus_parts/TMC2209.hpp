@@ -187,7 +187,7 @@ namespace sensors {
          *
          * @return no return value.
          */
-        void operator<<(std::array<uint8_t, 8> &rhs);
+        uint32_t operator<<(std::array<uint8_t, 8> &rhs);
 
 
     };
