@@ -25,6 +25,17 @@ namespace py = pybind11;
 void init_TMC2209(py::module &m) {
 
     py::class_<sensors::TMC2209>(m, "TMC2209")
+            // Constructor
             .def(py::init<>())
-            .def("__lshift__", py::overload_cast<std::array<uint8_t, 8>&>(&sensors::TMC2209::operator<<));;
+
+            // class docstring
+            .def("__doc__", [](){return "This is the TMC2209 Stepper Driver.\n";})
+
+            // communication function
+            .def("__lshift__", py::overload_cast<std::array<uint8_t, 8>&>(&sensors::TMC2209::operator<<))
+
+            // docstring for communication function
+            .def("__lshift__.__doc__", [](){return
+            "The communication with a TMC2209\n"
+            "For more info, see the documentation in the c++ classes.\n";});
 }

@@ -21,7 +21,6 @@ Created by Jippe Heijnen on 31-10-23.
 namespace sensors {
 
     TMC2209::TMC2209() {}
-
     void TMC2209::operator<<(std::array<uint8_t, 8> &rhs) {
 
     };

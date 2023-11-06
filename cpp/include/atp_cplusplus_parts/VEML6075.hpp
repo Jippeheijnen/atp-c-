@@ -26,9 +26,10 @@ Created by Jippe Heijnen on 31-10-23.
 
 namespace sensors {
 
+    /**
+     * UV sensor that uses I²C communication
+     */
     class VEML6075 {
-
-        std::string _name;
 
         // internal registers (they return random values for now...)
         volatile uint8_t UV_CONF = 0x00; // for writing only low address

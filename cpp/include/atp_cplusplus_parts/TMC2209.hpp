@@ -24,6 +24,9 @@ Created by Jippe Heijnen on 31-10-23.
 
 namespace sensors {
 
+    /**
+     * Trinamic Stepper Driver that uses single-wire UART.
+     */
     class TMC2209 {
 
         // internal registers
