@@ -53,8 +53,9 @@ namespace sensors {
                 response = 0x00;
                 break;
             case 0x7:
-                this->UVA_Data_LSB = uint8_t(random());
-                this->UVA_Data_MSB = uint8_t(random());
+                // Return random values between 0 and 100.
+                this->UVA_Data_LSB = rand()%(1000-0 + 1) + 0;
+                this->UVA_Data_MSB = 0;
                 response = (this->UVA_Data_MSB << 8);
                 response |= this->UVA_Data_LSB;
                 break;
