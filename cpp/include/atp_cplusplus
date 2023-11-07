@@ -2,5 +2,6 @@
 #define ATP_CPLUSPLUS_LIBRARY_H
 
 #include "atp_cplusplus_parts/VEML6075.hpp"
+#include "atp_cplusplus_parts/TMC2209.hpp"
 
 #endif
