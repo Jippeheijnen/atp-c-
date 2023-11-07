@@ -24,7 +24,7 @@ Created by Jippe Heijnen on 06-11-23.
 
 using namespace sensors;
 
-void showReadCommand(TMC2209 &chip, std::string cmdName, uint8_t command) {
+void showReadCommand(TMC2209 &chip, std::string cmdName, std::array<uint8_t, 8> command) {
 
     uint16_t response = chip << command; // reading from chip
 
@@ -44,12 +44,15 @@ void showReadCommand(TMC2209 &chip, std::string cmdName, uint8_t command) {
 
 int main() {
 
-    TMC2209 s1, s2, s3, s4;
-    std::array<VEML6075, 4> arr = {s1, s2, s3, s4};
+    TMC2209 s1 = TMC2209(0);
+    TMC2209 s2 = TMC2209(1);
+    TMC2209 s3 = TMC2209(3);
+    TMC2209 s4 = TMC2209(3);
+    std::array<TMC2209, 4> arr = {s1, s2, s3, s4};
 
     for (;;) {
-        showReadCommand(s1, "Chip ID:", 0x0);
-        showReadCommand(s1, "UVA data:", 0x7);
+//        showReadCommand(s1, "Chip ID:", 0x0);
+//        showReadCommand(s1, "UVA data:", 0x7);
 
         // adding delay
         using namespace std::this_thread;
