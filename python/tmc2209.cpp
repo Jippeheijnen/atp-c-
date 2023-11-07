@@ -26,7 +26,7 @@ void init_TMC2209(py::module &m) {
 
     py::class_<sensors::TMC2209>(m, "TMC2209")
             // Constructor
-            .def(py::init<>())
+            .def(py::init<uint8_t>(), py::arg("slave_addr"))
 
             // class docstring
             .def("__doc__", [](){return "This is the TMC2209 Stepper Driver.\n";})
